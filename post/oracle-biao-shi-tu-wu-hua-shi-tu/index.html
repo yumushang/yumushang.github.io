@@ -2,27 +2,16 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>关于 | 生活应你而火热</title>
+<title>ORACLE 表,视图,物化视图 | 生活应你而火热</title>
 <link rel="shortcut icon" href="https://yumushang.github.io/favicon.ico?v=1609212408647">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://yumushang.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="关于 | 生活应你而火热 - Atom Feed" href="https://yumushang.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="ORACLE 表,视图,物化视图 | 生活应你而火热 - Atom Feed" href="https://yumushang.github.io/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="
-欢迎来到我的小站呀，很高兴遇见你！🤝
-
-🏠 关于本站
-基于Gridea的静态博客
-👨‍💻 博主是谁
-在淮安工作的普普通通程序猿
-⛹ 兴趣爱好
-没有
-📬 联系我呀
-1174424913@qq.com
-..." />
+    <meta name="description" content="最近在做项目时，需要查询另一个数据库的视图。用到dblink远程连接数据库进行查询。dblink查询需要在表或者视图后加@xxxxx（数据库用户名），为了方便在本地开发与部署，我先将需要查询的视图数据存到本地表中，而在生产环境中使用创建同名..." />
     <meta name="keywords" content="" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
@@ -85,11 +74,11 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              关于
+              ORACLE 表,视图,物化视图
             </h2>
             <div class="post-info">
               <span>
-                2019-01-25
+                2020-12-29
               </span>
               <span>
                 1 min read
@@ -99,36 +88,34 @@
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <blockquote>
-<p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
-</blockquote>
-<h2 id="关于本站">🏠 关于本站</h2>
-<p>基于Gridea的静态博客</p>
-<h2 id="博主是谁">👨‍💻 博主是谁</h2>
-<p>在淮安工作的普普通通程序猿</p>
-<h2 id="兴趣爱好">⛹ 兴趣爱好</h2>
-<p>没有</p>
-<h2 id="联系我呀">📬 联系我呀</h2>
-<p>1174424913@qq.com</p>
+                <p>最近在做项目时，需要查询另一个数据库的视图。用到dblink远程连接数据库进行查询。dblink查询需要在表或者视图后加@xxxxx（数据库用户名），为了方便在本地开发与部署，我先将需要查询的视图数据存到本地表中，而在生产环境中使用创建同名视图的方式，如下：</p>
+<pre><code>create view xxxx
+as 
+select * from xxxx@xxxxx
+</code></pre>
+<p>这样使得本地与生产环境的sql都不用加上@xxxxx。</p>
+<p>在开发完成后，部署到正式环境测试时，发现了问题。<br>
+在本地没问题的sql到生产环境中报<br>
+ORA-01652:无法通过128 (在表空间HATEMP1218中)扩展temp<br>
+<img src="https://yumushang.github.io/post-images/1609212399323.png" alt="" loading="lazy"></p>
 
               </div>
               <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E7%AB%99">🏠 关于本站</a></li>
-<li><a href="#%E5%8D%9A%E4%B8%BB%E6%98%AF%E8%B0%81">👨‍💻 博主是谁</a></li>
-<li><a href="#%E5%85%B4%E8%B6%A3%E7%88%B1%E5%A5%BD">⛹ 兴趣爱好</a></li>
-<li><a href="#%E8%81%94%E7%B3%BB%E6%88%91%E5%91%80">📬 联系我呀</a></li>
-</ul>
-</li>
-</ul>
-
+                
               </div>
             </div>
           </article>
         </div>
 
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://yumushang.github.io/post/hello-gridea/">
+              <h3 class="post-title">
+                Hello Gridea
+              </h3>
+            </a>
+          </div>
         
 
         

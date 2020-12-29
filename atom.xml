@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yumushang.github.io</id>
     <title>生活应你而火热</title>
-    <updated>2020-12-29T03:09:32.258Z</updated>
+    <updated>2020-12-29T03:26:57.049Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yumushang.github.io"/>
     <link rel="self" href="https://yumushang.github.io/atom.xml"/>
@@ -10,6 +10,24 @@
     <logo>https://yumushang.github.io/images/avatar.png</logo>
     <icon>https://yumushang.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 生活应你而火热</rights>
+    <entry>
+        <title type="html"><![CDATA[ORACLE 表,视图,物化视图]]></title>
+        <id>https://yumushang.github.io/post/oracle-biao-shi-tu-wu-hua-shi-tu/</id>
+        <link href="https://yumushang.github.io/post/oracle-biao-shi-tu-wu-hua-shi-tu/">
+        </link>
+        <updated>2020-12-29T03:10:18.000Z</updated>
+        <content type="html"><![CDATA[<p>最近在做项目时，需要查询另一个数据库的视图。用到dblink远程连接数据库进行查询。dblink查询需要在表或者视图后加@xxxxx（数据库用户名），为了方便在本地开发与部署，我先将需要查询的视图数据存到本地表中，而在生产环境中使用创建同名视图的方式，如下：</p>
+<pre><code>create view xxxx
+as 
+select * from xxxx@xxxxx
+</code></pre>
+<p>这样使得本地与生产环境的sql都不用加上@xxxxx。</p>
+<p>在开发完成后，部署到正式环境测试时，发现了问题。<br>
+在本地没问题的sql到生产环境中报<br>
+ORA-01652:无法通过128 (在表空间HATEMP1218中)扩展temp<br>
+<img src="https://yumushang.github.io/post-images/1609212399323.png" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
         <id>https://yumushang.github.io/post/hello-gridea/</id>

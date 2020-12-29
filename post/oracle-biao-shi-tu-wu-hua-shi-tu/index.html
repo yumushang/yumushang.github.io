@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ORACLE 表,视图,物化视图 | 生活应你而火热</title>
-<link rel="shortcut icon" href="https://yumushang.github.io/favicon.ico?v=1609212408647">
+<link rel="shortcut icon" href="https://yumushang.github.io/favicon.ico?v=1609222655451">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://yumushang.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="ORACLE 表,视图,物化视图 | 生活应你而火热 - Atom Feed" href="https://yumushang.github.io/atom.xml">
@@ -21,7 +21,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://yumushang.github.io">
-  <img class="avatar" src="https://yumushang.github.io/images/avatar.png?v=1609212408647" alt="">
+  <img class="avatar" src="https://yumushang.github.io/images/avatar.png?v=1609222655451" alt="">
   </a>
   <h1 class="site-title">
     生活应你而火热
@@ -81,7 +81,7 @@
                 2020-12-29
               </span>
               <span>
-                1 min read
+                2 min read
               </span>
               
             </div>
@@ -98,6 +98,16 @@ select * from xxxx@xxxxx
 在本地没问题的sql到生产环境中报<br>
 ORA-01652:无法通过128 (在表空间HATEMP1218中)扩展temp<br>
 <img src="https://yumushang.github.io/post-images/1609212399323.png" alt="" loading="lazy"></p>
+<p>google了这个报错信息是因为临时表空间不足，我调整了临时表空间到40G后，发现还是报一样的错误，这就不对劲了，本地数据库的临时表空间只有1个G，也一样能查询啊。<br>
+我先是猜测数据量级的问题，可能是因为生产环境的数据量太大了。所以我做了第一个操作，将视图转为物化视图，并且只拉取近两年的数据。如下：</p>
+<pre><code> CREATE MATERIALIZED VIEW xxxx
+REFRESH FORCE ON DEMAND
+START WITH TO_DATE('24-12-2020 02:00:00', 'DD-MM-YYYY HH24:MI:SS') NEXT TO_DATE(CONCAT (TO_CHAR(  SYSDATE + 1 , 'DD-MM-YYYY' ), '02:00:00' ), 'DD-MM-YYYY HH24:MI:SS' )  
+AS
+SELECT * from  xxxx@xxxxx
+where create_time between sysdate-366-366 and sysdate;
+
+</code></pre>
 
               </div>
               <div class="toc-container">

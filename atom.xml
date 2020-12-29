@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yumushang.github.io</id>
     <title>生活应你而火热</title>
-    <updated>2020-12-29T03:26:57.049Z</updated>
+    <updated>2020-12-29T06:18:32.248Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yumushang.github.io"/>
     <link rel="self" href="https://yumushang.github.io/atom.xml"/>
@@ -26,6 +26,16 @@ select * from xxxx@xxxxx
 在本地没问题的sql到生产环境中报<br>
 ORA-01652:无法通过128 (在表空间HATEMP1218中)扩展temp<br>
 <img src="https://yumushang.github.io/post-images/1609212399323.png" alt="" loading="lazy"></p>
+<p>google了这个报错信息是因为临时表空间不足，我调整了临时表空间到40G后，发现还是报一样的错误，这就不对劲了，本地数据库的临时表空间只有1个G，也一样能查询啊。<br>
+我先是猜测数据量级的问题，可能是因为生产环境的数据量太大了。所以我做了第一个操作，将视图转为物化视图，并且只拉取近两年的数据。如下：</p>
+<pre><code> CREATE MATERIALIZED VIEW xxxx
+REFRESH FORCE ON DEMAND
+START WITH TO_DATE('24-12-2020 02:00:00', 'DD-MM-YYYY HH24:MI:SS') NEXT TO_DATE(CONCAT (TO_CHAR(  SYSDATE + 1 , 'DD-MM-YYYY' ), '02:00:00' ), 'DD-MM-YYYY HH24:MI:SS' )  
+AS
+SELECT * from  xxxx@xxxxx
+where create_time between sysdate-366-366 and sysdate;
+
+</code></pre>
 ]]></content>
     </entry>
     <entry>
